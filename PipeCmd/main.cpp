@@ -9,7 +9,7 @@ CHAR cmdLine[MAX_PATH] = { 0 };
 INT iResult = 0;
 DWORD inBufLen = 0;
 DWORD otBufLen = 0;
-DWORD timeout = TRUE, count = 0, tmpbuflen = 0, BufLen = 0;
+DWORD timeout = TRUE, count = 0, BufLen = 0;
 CHAR Buf[DEFAULT_BUFLEN << 4] = { 0 };
 HANDLE hReadPipe1, hWritePipe1, hReadPipe2, hWritePipe2;
 INT main() {
