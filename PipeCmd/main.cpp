@@ -4,15 +4,16 @@
 #define DEFAULT_BUFLEN 1024
 CHAR otBuf[DEFAULT_BUFLEN] = { 0 };
 CHAR inBuf[DEFAULT_BUFLEN] = { 0 };
-CHAR filepath[MAX_PATH] = { 0 };
 CHAR cmdLine[MAX_PATH] = { 0 };
-INT iResult = 0;
+CHAR Buf[DEFAULT_BUFLEN << 4] = { 0 };
 DWORD inBufLen = 0;
 DWORD otBufLen = 0;
-DWORD timeout = TRUE, count = 0, BufLen = 0;
-CHAR Buf[DEFAULT_BUFLEN << 4] = { 0 };
+DWORD BufLen = 0;
+DWORD timeout = TRUE;
+DWORD count = 0;
+INT iResult = 0;
 HANDLE hReadPipe1, hWritePipe1, hReadPipe2, hWritePipe2;
-INT main() {
+int main() {
     // Security attributes
     SECURITY_ATTRIBUTES sa;
     sa.nLength = sizeof(sa);
@@ -83,7 +84,7 @@ INT main() {
                 iResult = ReadFile(hReadPipe1, otBuf, DEFAULT_BUFLEN, &otBufLen, 0);
                 if (iResult == 0)
                     goto END;
-                if (strncmp(otBuf, inBuf, inBufLen) == 0) {
+                if (z_strncmp(otBuf, inBuf, inBufLen) == 0) {
                     otBufLen -= inBufLen;
                     z_memcpy(otBuf, otBuf + inBufLen, otBufLen);
                     if (otBufLen == 0)
@@ -95,7 +96,7 @@ INT main() {
                 timeout = FALSE;
             }
             else {
-                if (timeout && count++ <= 300) { // Wait for 15 Second.
+                if (timeout && count++ <= 300) { // Wait for 15 Seconds.
                     Sleep(50);
                     continue;
                 }
